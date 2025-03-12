@@ -440,7 +440,7 @@ function SignUpStudent() {
 
   const handleSubmit = async() => {
     if (validateForm()) {
-      const response = await fetch("https://ktubdas.kc-technologies.org/api/signup/student",{
+      const response = await fetch("http://localhost:3000/api/signup/student",{
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json'

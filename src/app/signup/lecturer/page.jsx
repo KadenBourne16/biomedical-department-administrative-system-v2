@@ -629,11 +629,21 @@ const LecturerSignup = () => {
     setCourseArray((previousCourse) => [...previousCourse, previousCourse.length])
   }
 
-  const handleSubmit = () => {
-    console.log("Form Data Submitted:", lecturerData)
+  const handleSubmit = async() => {
     alert("Form submitted successfully! Check console for data.")
-    // Here you would typically send the data to your backend
-  }
+    const response = await fetch("http://localhost:3000/api/signup/lecturer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(lecturerData)
+    });
+
+    const backendResponse = await response.json();
+    console.log(backendResponse)
+  } 
+
+
 
   return (
     <div className="flex flex-col justify-center items-center lg:px-0 px-5">
