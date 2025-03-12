@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.form-input{
+    @apply border-1 border-black rounded-md w-fit py-1 px-5;
+}
+
+.main-signup-student-container .submit-button-div{
+    @apply flex flex-col items-center justify-center
+}
+
+.generalError{
+    @apply text-red-400 font-semibold
+}

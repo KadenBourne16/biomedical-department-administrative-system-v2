@@ -1,0 +1,42 @@
+.form-container{
+    background-image: url('/formbackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* login.css */
+  /* Mobile styles */
+ /* Mobile styles */
+@media only screen and (max-width: 768px) {
+    .form-container {
+      padding: 20px;
+    }
+    .bg-gradient-to-r {
+      background-size: cover;
+      background-position: center;
+    }
+  }
+  
+  /* Large screen styles */
+  @media only screen and (min-width: 769px) and (max-width: 1349px) {
+    .form-container {
+      padding: 40px;  /* Adjust the max-width to prevent squishing */
+    }
+    .bg-gradient-to-r {
+      background-size: cover;
+      background-position: center;
+    }
+  }
+  
+  /* Extra large screen styles */
+  @media only screen and (min-width: 1350px) {
+    .form-container {
+      padding: 60px;
+    }
+    .bg-gradient-to-r {
+      background-size: cover;
+      background-position: center;
+    }
+  }
+  
