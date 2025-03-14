@@ -52,9 +52,6 @@ export async function SignUpStudentServerAction(formData) {
         const result = await client.create(studentData);
         const accountResult = await client.create(studentAccount);
         return { success: true, data: result };
-        if(accountResult){
-            console.log("Account Created Successfully");
-        }
     }
 
     
