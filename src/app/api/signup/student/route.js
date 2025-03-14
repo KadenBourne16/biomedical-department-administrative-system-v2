@@ -1,4 +1,4 @@
-import { createConnectionString } from "../../../../../lib/db_connection";
+import { createConnectionString } from "../../../lib/db_connection";
 import { checkAndCreateTable, insertStudentQuery, checkExistingUser} from "@/app/sql/students/student_query";
 
 export async function POST(req) {
