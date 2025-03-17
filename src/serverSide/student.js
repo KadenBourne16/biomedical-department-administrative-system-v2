@@ -60,6 +60,7 @@ export async function SignUpStudentServerAction(formData) {
     } else {
         const result = await client.create(studentData);
         const accountResult = await client.create(studentAccount);
+        console.log(client.token);
         return { success: true, data: result };
     }
 
