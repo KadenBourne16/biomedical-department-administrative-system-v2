@@ -1,0 +1,1 @@
+export const jwt_secret = "bdas_biomedsystem_!@2025"

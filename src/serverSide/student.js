@@ -1,5 +1,5 @@
 "use server";
-import hashPassword from "@/app/utils/passwordEncrypter";
+import passwordUtils from "@/app/utils/passwordEncrypter";
 import { client } from "@/sanity/lib/client";
 
 export async function SignUpStudentServerAction(formData) {
@@ -32,11 +32,12 @@ export async function SignUpStudentServerAction(formData) {
       religion: formData["religion"],
     };
 
-    const defaultPassword = await hashPassword("BiomedStudent");
+    const defaultPassword = await passwordUtils.hashPassword("BiomedStudent");
     const studentAccount = {
         _type: "account",
         email: formData.institutionalEmail,
-        password: defaultPassword
+        password: defaultPassword,
+        account_type: "student"
     };
 
 
