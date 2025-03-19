@@ -18,9 +18,9 @@ export default function DashboardStudent() {
     const fetchStudentData = async () => {
       try {
         const response = await FetchUserServerSideAction(studentId)
-        console.log("Student data:", response)
+        // console.log(response);
         if (response) {
-          setStudentInfo(response)
+          setStudentInfo(response.data[0])
         } else {
           setError("No student data found")
         }
@@ -91,8 +91,7 @@ export default function DashboardStudent() {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold text-[#2541B2] mb-6">
-        Welcome back, {studentInfo.indexNo || studentInfo.name || "Student"}
-        <span className="block text-sm text-gray-500 mt-1">Student ID: {studentId}</span>
+        Welcome back, <span>{studentInfo.firstName}|{studentInfo.indexNo}</span>
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

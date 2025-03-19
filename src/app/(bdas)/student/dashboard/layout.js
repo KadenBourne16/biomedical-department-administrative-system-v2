@@ -9,9 +9,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <div lang="en">
-            <div className="flex lg:flex-row">
+                <ProfileIcon/>
                 <StudentNavbar />
-            </div>
             {children}
         </div>
     );

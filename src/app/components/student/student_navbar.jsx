@@ -1,19 +1,21 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Home, MessageSquare, BookOpen, Briefcase, Newspaper, Menu, X, User } from "lucide-react"
-import the_curr_student from "@/app/utils/student/current_student" 
+ 
 
 export default function StudentNavbar() {
+  const [accountId, setAccountId] = useState("")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
-
+  useEffect(() =>{
+    setAccountId(localStorage.getItem("sid"));
+  }, [])
   return (
-    <div className="flex justify-center w-full p-4">
-      <nav className="bg-[#2541B2] bg-opacity-80 backdrop-blur-sm rounded-lg shadow-lg max-w-6xl w-full">
+    <div className="flex justify-center w-full pt-0 p-4">
+      <nav className="bg-[#2541B2] bg-opacity-80 backdrop-blur-sm rounded-br-lg rounded-bl-lg shadow-lg max-w-6xl w-full">
         <div className="px-4 py-3">
           {/* Mobile menu button */}
           <div className="flex md:hidden justify-end">
@@ -24,8 +26,8 @@ export default function StudentNavbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex justify-center space-x-8">
-            <NavItem href={`/student/dashboard/:id`} icon={<Home />} text="Home" />
-            <NavItem href="/student/information" icon={<User />} text="Information" />
+            <NavItem href={`/student/dashboard/${accountId}`} icon={<Home />} text="Home" />
+            <NavItem href="/student/dashboard/information" icon={<User />} text="Information" />
             <NavItem href="/student/dashboard/message" icon={<MessageSquare />} text="Message" />
             <NavItem href="/syllabus" icon={<BookOpen />} text="View Syllabus" />
             <NavItem href="/career" icon={<Briefcase />} text="View Career/Industry" />
@@ -35,7 +37,8 @@ export default function StudentNavbar() {
           {/* Mobile Navigation */}
           {isMenuOpen && (
             <div className="md:hidden mt-2 space-y-2">
-              <MobileNavItem href="/student/dashboard" icon={<Home />} text="Home" />
+              <MobileNavItem href={`/student/dashboard/${accountId}`} icon={<Home />} text="Home" />
+              <MobileNavItem href="/student/dashboard/Information" icon={<User />} text="Information" />
               <MobileNavItem href="/student/dashboard/message" icon={<MessageSquare />} text="Message" />
               <MobileNavItem href="/syllabus" icon={<BookOpen />} text="View Syllabus" />
               <MobileNavItem href="/career" icon={<Briefcase />} text="View Career/Industry" />
