@@ -97,8 +97,8 @@ function RenderForm({ section, formData, handleChange, errors }) {
               required
             >
               <option value="">Select Program</option>
-              <option value="btech">B-TECH Biomedical Engineering</option>
-              <option value="hnd">HND Biomedical Engineering</option>
+              <option value="B-TECH Biomedical Engineering">B-TECH Biomedical Engineering</option>
+              <option value="HND Biomedical Engineering">HND Biomedical Engineering</option>
             </select>
             {errors.program && <h1 className="generalError">{errors.program}</h1>}
           </div>

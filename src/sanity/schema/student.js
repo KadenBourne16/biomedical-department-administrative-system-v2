@@ -6,6 +6,16 @@ export const student = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'imageField',
+      type: 'image',
+      title: 'Image',
+      options: {
+        hotspot: true,
+        crop: true
+      },
+      storeOriginalFilename: true
+    }),
+    defineField({
       name: "indexNo",
       title: "Index Number",
       type: "string"

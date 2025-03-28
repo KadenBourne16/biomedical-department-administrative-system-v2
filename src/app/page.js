@@ -27,7 +27,7 @@ export default function LoginPage() {
         const account_type = response.data["account_type"];
 
         if(account_type === "student"){
-          localStorage.setItem("sid", response.data["_id"])
+          localStorage.setItem("accountId", response.data["_id"])
           setTimeout(()=> {
             setIsLoading(true);
             if(setTimeout === 1999){
@@ -89,7 +89,7 @@ export default function LoginPage() {
           <label className="font-semibold text-blue-700">Username</label>
           <input
             name="email"
-            className="block border-b border-gray-800 self-center w-full placeholder:opacity-40"
+            className="block border-b border-gray-800 self-center w-full placeholder:opacity-40 focus:outline-0"
             placeholder="Email"
             onChange={handleInputChange} // Use the new input change handler
           />
@@ -99,7 +99,7 @@ export default function LoginPage() {
           <input
             name="password"
             type="password" // Added type for password input
-            className="block border-b border-gray-800 self-center w-full placeholder:opacity-40"
+            className="block border-b border-gray-800 self-center w-full placeholder:opacity-40 focus:outline-0"
             placeholder="Password"
             onChange={handleInputChange} // Use the new input change handler
           />

@@ -1,5 +1,6 @@
 import ProfileIcon from "@/app/components/global/profile_pic";
 import StudentNavbar from "@/app/components/student/student_navbar";
+import AuthorisationProvider from "@/app/components/global/authorised_context";
 
 export const metadata = {
     title: "student",
@@ -9,9 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <div lang="en">
-                <ProfileIcon/>
-                <StudentNavbar />
-            {children}
+                <AuthorisationProvider>
+                    <ProfileIcon/>
+                    <StudentNavbar />
+                    {children}
+                </AuthorisationProvider>
         </div>
     );
 }
