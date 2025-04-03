@@ -120,6 +120,7 @@ export default function LoginPage() {
         <span>
           {errors.account && <h1 className="text-red-400 font-semibold">{errors.account}</h1>}
         </span>
+          <h1 className="text-gray-50 text-sm opacity-50">Developed by <span>KofTechnologies</span> </h1>
       </div>
     </ div>
   );
