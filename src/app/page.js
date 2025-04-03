@@ -106,7 +106,7 @@ export default function LoginPage() {
           />
         </div>
         <button 
-          className="bg-[#2541B2] hover:bg-blue-600 text-white w-full rounded-xl py-3"
+          className="bg-blue-400 hover:bg-blue-600 text-white w-full rounded-xl py-3 font-bold"
           onClick={handleSubmit} // Added onClick to trigger handleSubmit
         >
           Sign In
