@@ -11,7 +11,7 @@ export default function StudentNavbar() {
     setIsMenuOpen(!isMenuOpen)
   }
   useEffect(() =>{
-    setAccountId(localStorage.getItem("sid"));
+    setAccountId(localStorage.getItem("accountId"));
   }, [])
   return (
     <div className="flex justify-center w-full pt-0 p-4">
@@ -27,7 +27,7 @@ export default function StudentNavbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex justify-center space-x-8">
             <NavItem href={`/student/dashboard/${accountId}`} icon={<Home />} text="Home" />
-            <NavItem href="/student/dashboard/information" icon={<User />} text="Information" />
+            <NavItem href={`/student/dashboard/information/${accountId}`} icon={<User />} text="Information" />
             <NavItem href="/student/dashboard/message" icon={<MessageSquare />} text="Message" />
             <NavItem href="/syllabus" icon={<BookOpen />} text="View Syllabus" />
             <NavItem href="/career" icon={<Briefcase />} text="View Career/Industry" />
@@ -38,7 +38,7 @@ export default function StudentNavbar() {
           {isMenuOpen && (
             <div className="md:hidden mt-2 space-y-2">
               <MobileNavItem href={`/student/dashboard/${accountId}`} icon={<Home />} text="Home" />
-              <MobileNavItem href="/student/dashboard/Information" icon={<User />} text="Information" />
+              <MobileNavItem href={`/student/dashboard/information/${accountId}`} icon={<User />} text="Information" />
               <MobileNavItem href="/student/dashboard/message" icon={<MessageSquare />} text="Message" />
               <MobileNavItem href="/syllabus" icon={<BookOpen />} text="View Syllabus" />
               <MobileNavItem href="/career" icon={<Briefcase />} text="View Career/Industry" />

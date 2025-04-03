@@ -11,7 +11,7 @@ export const generateToken = (userId) => {
 // Function to verify a JWT token
 export const verifyToken = (token) => {
     try {
-        return jwt.verify(token, JWT_SECRET);
+        return {checked: true, data: jwt.verify(token, JWT_SECRET)};
     } catch (error) {
         return null; // Return null or handle the error as needed
     }

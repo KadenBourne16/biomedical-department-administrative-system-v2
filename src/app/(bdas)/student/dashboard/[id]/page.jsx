@@ -1,40 +1,74 @@
 "use client"
-
 import { Calendar, Award, BookOpen, Newspaper, TrendingUp } from "lucide-react"
-import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
+import { useEffect, useState, useContext } from "react"
+import { useParams, useRouter } from "next/navigation"
 import { FetchUserServerSideAction } from "@/serverSide/fetch_user_serverside_action"
+import LoadingScreen from "@/app/components/global/loading_animation"
+import { checkAuthorisationServerSide } from "@/serverSide/check_authorisation_serside_action"
+import AuthorisationContext from "@/app/components/global/auth_context"
+
 
 export default function DashboardStudent() {
-  const params = useParams()
+  const params = useParams();
+  const router = useRouter();
   const studentId = params.id // This will extract the dynamic segment from the URL
-
   const [studentInfo, setStudentInfo] = useState({}) // Initialize as empty object, not string
   const [loading, setLoading] = useState(true) // State to manage loading
   const [error, setError] = useState(null) // Add error state
+  const [globalLoading, setGlobalLoading] = useState(true)
+  const {authorised, setAuthorised} = useContext(AuthorisationContext);
+
+  //Check for authorisation
+  useEffect(() => {
+    const fetchAuthorisation = async () => {
+        try {
+            const isAuthorised = await checkAuthorisationServerSide();
+            if (isAuthorised && isAuthorised.authorised) {
+                setAuthorised(true);
+                setGlobalLoading(false);
+            } else {
+                router.push('/');
+            }    
+        } catch (error) {
+            console.error('Error fetching authorization:', error);
+            router.push('/');  // Redirect to login if error occurs
+        }
+    }
+  
+    fetchAuthorisation();
+  }, []);
 
   useEffect(() => {
-    // Define the fetch function
     const fetchStudentData = async () => {
-      try {
-        const response = await FetchUserServerSideAction(studentId)
-        // console.log(response);
-        if (response) {
-          setStudentInfo(response.data[0])
-        } else {
-          setError("No student data found")
+        try {
+          const response = await FetchUserServerSideAction(studentId)
+          // console.log(response);
+          if (response) {
+            setStudentInfo(response.data[0])
+            console.log(response)
+          } else {
+            setError("No student data found")
+          }
+        } catch (err) {
+          console.error("Error fetching student data:", err)
+          setError("Failed to load student data")
+        } finally {
+          setLoading(false)
         }
-      } catch (err) {
-        console.error("Error fetching student data:", err)
-        setError("Failed to load student data")
-      } finally {
-        setLoading(false)
       }
-    }
+  
+      // Call the function
+      fetchStudentData()
+    
+  }, [studentId]); // Dependency array to run effect when studentId changes
 
-    // Call the function
-    fetchStudentData()
-  }, [studentId]) // Dependency array to run effect when studentId changes
+  if(globalLoading){
+    return (
+      <div className="absolute top-0 h-screen w-screen bg-white">
+        <LoadingScreen/>
+      </div>
+    )
+  }
 
   // Show loading state
   if (loading) {

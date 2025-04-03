@@ -12,7 +12,7 @@ const ProfileIcon = () => {
   // Fix localStorage issue (not available during server-side rendering)
   useEffect(() => {
     // Only access localStorage after component mounts (client-side)
-    setAccountId(localStorage.getItem("sid"))
+    setAccountId(localStorage.getItem("accountId"))
   }, [])
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const ProfileIcon = () => {
 
   const handleLogout = () => {
     // Handle logout logic here
-    localStorage.removeItem("sid")
+    localStorage.removeItem("accountId")
     // Redirect to login page or perform other logout actions
     console.log("Logging out...")
   }
