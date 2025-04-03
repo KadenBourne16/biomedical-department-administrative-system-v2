@@ -79,14 +79,15 @@ export default function LoginPage() {
 
   return (
     <div
-      className="bg-gradient-to-r from-blue-500 to-blue-300 h-screen flex flex-col justify-center items-center py-10 px-4 lg:px-[30em]"
+      className="bg-gradient-to-r from-blue-500 to-[#2541B2] h-screen flex flex-col justify-center items-center py-10 px-4 lg:px-[30em]"
     >
       <div
         className="form-container bg-white flex flex-col text-center items-center shadow-black shadow-2xl space-y-15 h-full w-full rounded-2xl pt-16 px-6 lg:px-40"
       >
         <h1 className="font-bold text-2xl">Sign In</h1>
+        <h1 className="font-bold text-2xl text-[#2541B2]">B-D-A-S</h1>
         <div className="w-full text-left space-y-5 mt-10">
-          <label className="font-semibold text-blue-700">Username</label>
+          <label className="font-semibold text-[#2541B2]">Username</label>
           <input
             name="email"
             className="block border-b border-gray-800 self-center w-full placeholder:opacity-40 focus:outline-0"
@@ -95,7 +96,7 @@ export default function LoginPage() {
           />
         </div>
         <div className="w-full text-left space-y-5">
-          <label className="font-semibold text-blue-700">Password</label>
+          <label className="font-semibold text-[#2541B2]">Password</label>
           <input
             name="password"
             type="password" // Added type for password input
@@ -105,14 +106,14 @@ export default function LoginPage() {
           />
         </div>
         <button 
-          className="bg-blue-400 hover:bg-blue-600 text-white w-full h-10 rounded-xl"
+          className="bg-[#2541B2] hover:bg-blue-600 text-white w-full rounded-xl py-3"
           onClick={handleSubmit} // Added onClick to trigger handleSubmit
         >
           Sign In
         </button>
         <span>
           Don't have an account?{" "}
-          <Link href="/signup" className="text-blue-400 font-semibold hover:text-xl">
+          <Link href="/signup" className="text-[#2541B2] font-semibold hover:text-xl">
             Sign Up
           </Link>
         </span>
