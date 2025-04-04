@@ -310,6 +310,21 @@ function RenderForm({ section, formData, handleChange, errors }) {
             {errors.cityOfBirth && <h1 className="generalError">{errors.cityOfBirth}</h1>}
           </div>
           <div>
+            <label htmlFor="personalEmail" className="block text-sm text-gray-600 mb-1">
+              Perosnal Email
+            </label>
+            <input
+              type="email"
+              id="personalEmail"
+              name="personalEmail"
+              value={formData.personalEmail}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            {errors.personalEmail && <h1 className="generalError">{errors.personalEmail}</h1>}
+          </div>
+          <div>
             <label htmlFor="mobileNumber" className="block text-sm text-gray-600 mb-1">
               Mobile Number
             </label>
@@ -440,6 +455,7 @@ function SignUpStudent() {
     cityOfBirth: "",
     mobileNumber: "",
     institutionalEmail: "",
+    personalEmail: "",
     addressLine: "",
     addressLine2: "",
     maritalStatus: "",
@@ -487,6 +503,15 @@ function SignUpStudent() {
     // Validate institutional email
     if (formData.institutionalEmail && !formData.institutionalEmail.endsWith("@ktu.edu.gh")) {
       newErrors.institutionalEmail = "Email must end with @ktu.edu.gh"
+      isValid = false
+    }
+
+    const endingFormat = {
+      google: "@gmail.com",
+      yahoo: "@yahoo.com"
+    }
+    if(formData.personalEmail && !formData.personalEmail.endsWith(Object.keys(endingFormat))){
+      newErrors.personalEmail = "Must follow Email format";
       isValid = false
     }
 
@@ -539,6 +564,7 @@ function SignUpStudent() {
           cityOfBirth: "",
           mobileNumber: "",
           institutionalEmail: "",
+          personalEmail: "",
           addressLine: "",
           addressLine2: "",
           maritalStatus: "",

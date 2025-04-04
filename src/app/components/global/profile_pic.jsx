@@ -3,17 +3,23 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import { FetchUserServerSideAction } from "@/serverSide/fetch_user_serverside_action"
 import { ChevronDown, FileText, Settings, LogOut } from "lucide-react"
+import { useParams } from "next/navigation"
 
 const ProfileIcon = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [studentProfile, setStudentProfile] = useState("")
   const [accountId, setAccountId] = useState("")
+  const Parameter = useParams;
 
   // Fix localStorage issue (not available during server-side rendering)
-  useEffect(() => {
-    // Only access localStorage after component mounts (client-side)
-    setAccountId(localStorage.getItem("accountId"))
-  }, [])
+    useEffect(() => {
+      // Only access localStorage after component mounts (client-side)
+      if(localStorage.getItem("accountId")){
+        setAccountId(localStorage.getItem("accountId"))
+      }else{
+        setAccountId(Parameter.id)
+      }
+    }, [])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,7 +95,7 @@ const ProfileIcon = () => {
                 Report
               </a>
               <a
-                href="/student/account/settings"
+                href={`/student/account/settings/${accountId}`}
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
               >

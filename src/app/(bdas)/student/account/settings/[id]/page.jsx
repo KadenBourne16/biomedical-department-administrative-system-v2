@@ -20,23 +20,22 @@ import {
 } from "lucide-react"
 import { PasswordUpdate } from "@/serverSide/password_update_serverside_action"
 import SendWhatsappCode from "@/serverSide/sendwhatsapp_serverside_action"
+import {useParams} from 'next/navigation'
 
 const StudentSettings = () => {
   const [activeTab, setActiveTab] = useState("account")
   const [showPassword, setShowPassword] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
   const [accountPassword, setAccountPassword] = useState("BiomedStudent")
-  const [accountId, setAccountId] = useState("")
   const [studentInfo, setStudentInfo] = useState({});
   const [changePassword, setChangePassword] = useState(false);
   const [values, setValues] = useState({
     OldPassword: "",
     NewPassword: ""
 });
-
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-
-  const AccountID = localStorage.getItem('accountId')
+const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+const Parameter = useParams();
+const studentAccountID = Parameter.id;
 
   const handleChange = (e) => {
     setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -51,21 +50,21 @@ const StudentSettings = () => {
   }
 
   useEffect(() => {
-    const fetchStudentData = async () => {
+    const fetchStudentData = async() => {
       try {
-        const response = await FetchUserServerSideAction(AccountID)
-        if (response) {
+        const response = await FetchUserServerSideAction(Parameter.id)
+        if(response.success === true) {
           setStudentInfo(response.data[0])
-        } else {
-          alert("No student data found");
+        }else{
+          alert("Failed to load data")
         }
       } catch (err) {
         console.error("Error fetching student data:", err)
-        alert("Failed to load student data")
+        alert("Failed to load student data, settings page")
       }
     }
     fetchStudentData()
-  }, [AccountID]);
+  }, [studentAccountID]);
 
   const handleLogout = () => {
     console.log("Logging out...")
@@ -96,7 +95,7 @@ const StudentSettings = () => {
   return (
     <div className={`min-h-screen ${darkMode ? "bg-gray-900 text-white" : "bg-gray-100"}`}>
       <header className={`${darkMode ? "bg-gray-800" : "bg-[#2541B2]"} text-white p-4 flex items-center justify-between`}>
-        <Link href={`/student/dashboard/${AccountID}`} className="flex items-center space-x-2 text-white hover:text-gray-200">
+        <Link href={`/student/dashboard/${Parameter.id}`} className="flex items-center space-x-2 text-white hover:text-gray-200">
           <ChevronLeft size={20} />
           <span>Back to Dashboard</span>
         </Link>

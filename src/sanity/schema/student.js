@@ -116,6 +116,11 @@ export const student = defineType({
       type: "string"
     }),
     defineField({
+      name: "personalEmail",
+      title: "Personal Email",
+      type: "string"
+    }),
+    defineField({
       name: "addressLine",
       title: "Address Line",
       type: "string"

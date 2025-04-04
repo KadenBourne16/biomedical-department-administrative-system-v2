@@ -26,6 +26,7 @@ export async function SignUpStudentServerAction(formData) {
       cityOfBirth: formData["cityOfBirth"],
       mobileNumber: formData["mobileNumber"],
       institutionalEmail: formData["institutionalEmail"],
+      personalEmail: formData["personalEmail"],
       addressLine: formData["addressLine"],
       addressLine2: formData["addressLine2"],
       maritalStatus: formData["maritalStatus"],
@@ -45,10 +46,11 @@ export async function SignUpStudentServerAction(formData) {
     const searchInstitutionalEmail = formData.institutionalEmail;
     const searchMobileNumber = formData.mobileNumber;
     const searchIndexNo = formData.indexNo;
-    const existingUser = await client.fetch(`*[_type == 'student' && (institutionalEmail == "${searchInstitutionalEmail}" || mobileNumber == "${searchMobileNumber}" || indexNo == "${searchIndexNo}")]`);
+    const searchPersonalEmail = formData.personalEmail;
+    const existingUser = await client.fetch(`*[_type == 'student' && (institutionalEmail == "${searchInstitutionalEmail}" || mobileNumber == "${searchMobileNumber}" || indexNo == "${searchIndexNo}" || personalEmail == "${searchPersonalEmail}")]`);
     if (existingUser.length > 0) {
         console.log("User exists already");
-        return { success: false, data: "Email OR Phone Number OR Index Number exists already" };
+        return { success: false, data: "User Exist Already" };
     } else {
         const result = await client.create(studentData);
         const accountResult = await client.create(studentAccount);
