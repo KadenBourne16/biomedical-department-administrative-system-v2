@@ -509,10 +509,11 @@ function SignUpStudent() {
     const endingFormat = {
       google: "@gmail.com",
       yahoo: "@yahoo.com"
-    }
-    if(formData.personalEmail && !formData.personalEmail.endsWith(Object.keys(endingFormat))){
+    };
+    
+    if (formData.personalEmail && !Object.values(endingFormat).some(domain => formData.personalEmail.endsWith(domain))) {
       newErrors.personalEmail = "Must follow Email format";
-      isValid = false
+      isValid = false;
     }
 
     setErrors(newErrors)
