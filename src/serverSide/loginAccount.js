@@ -1,10 +1,10 @@
-"use server";
+"use server"
 import { client } from "@/sanity/lib/client";
 import passwordUtils from "@/app/utils/passwordEncrypter";
 import { generateToken } from "@/app/utils/JWT";
 import {cookies} from "next/headers"
 
-export default async function LoginServerSideAction(data, res) {
+export default async function LoginServerSideAction(data) {
     const { email, password } = data; // Destructure email and password from data
     const cookiesStore = await cookies();
     try {

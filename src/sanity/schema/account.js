@@ -11,6 +11,11 @@ export const account = defineType({
             type: "email"
         }),
         defineField({
+            name: "sub_id",
+            title: "Sub ID",
+            type: "string"
+        }),
+        defineField({
             name: "password",
             title: "Password",
             type:"string"

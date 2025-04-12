@@ -17,16 +17,22 @@ import {
   EyeOff,
   Save,
   AlertTriangle,
+  CircleCheck
 } from "lucide-react"
 import { PasswordUpdate } from "@/serverSide/password_update_serverside_action"
 import SendWhatsappCode from "@/serverSide/sendwhatsapp_serverside_action"
 import {useParams} from 'next/navigation'
+import LoadingScreen from "@/app/components/global/loading_animation"
+import {fetchStudentAccountInfo} from '@/serverSide/fetch_account_info_serverside_action'
+import { runCheckFunctions } from "@/serverSide/run_check_serverside_action"
+import IncorrectMessage from "@/app/components/global/incorrect_message"
+
 
 const StudentSettings = () => {
   const [activeTab, setActiveTab] = useState("account")
   const [showPassword, setShowPassword] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
-  const [accountPassword, setAccountPassword] = useState("BiomedStudent")
+  const [accountInfo, setAccountInfo] = useState("")
   const [studentInfo, setStudentInfo] = useState({});
   const [changePassword, setChangePassword] = useState(false);
   const [values, setValues] = useState({
@@ -34,63 +40,209 @@ const StudentSettings = () => {
     NewPassword: ""
 });
 const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+const[maskedValue, setMaskedValue] = useState({});
 const Parameter = useParams();
 const studentAccountID = Parameter.id;
+const [confirmInformation, setConfirmInformation] = useState("");
+const [modalLoading, setModalLoadinig] = useState(false);
+const [loadingAnimation, setLoadingAnimation] = useState(true);
+const [successMessage, setSuccessMessage] = useState(false)
 
+
+//Functions
   const handleChange = (e) => {
     setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
   const handleSavePassword = () => {
-    if (values.OldPassword === accountPassword) { // Replace with actual password check
+    const compareEnteredPassword = async() => {
+      console.log(values.OldPassword, accountInfo.password, "Password Info")
+      const passwordResult = await runCheckFunctions(values.OldPassword, accountInfo.password);
+      console.log(passwordResult)
+      if(passwordResult.success === true){
+        return true;
+      }
+      return false
+    }
+
+    if (compareEnteredPassword() === true) {
       setShowConfirmationModal(true);
     } else {
-      alert("Old password is incorrect.");
+      <IncorrectMessage error_name="Password"/>
     }
   }
 
   useEffect(() => {
-    const fetchStudentData = async() => {
+    if (showConfirmationModal) {
+      // Function to mask phone number
+      function maskPhoneNumber(phoneNumber) {
+        if (phoneNumber.length !== 10) {
+          throw new Error("Phone number must be 10 digits long");
+        }
+        return "XXXXXXXX" + phoneNumber.slice(-2);
+      }
+
+      // Function to mask email
+      function maskEmail(email) {
+        if (!email || typeof email !== 'string') {
+          throw new Error("Invalid email format");
+        }
+      
+        const atIndex = email.indexOf('@');
+        if (atIndex === -1) {
+          throw new Error("Invalid email format");
+        }
+      
+        const localPart = email.slice(0, atIndex); // Local part before the '@'
+        const domain = email.slice(atIndex); // Domain part (e.g., @gmail.com or @yahoo.com)
+      
+        // Check if the domain is either @gmail.com or @yahoo.com
+        if (domain !== '@gmail.com' && domain !== '@yahoo.com') {
+          throw new Error("Unsupported email domain");
+        }
+      
+        // Mask the local part, preserving the first 2 characters
+        const maskedLocalPart = localPart.length > 2 
+          ? localPart.slice(0, 2) + 'X'.repeat(localPart.length - 2) 
+          : localPart; // If local part is 2 characters or less, don't mask
+      
+        return maskedLocalPart + domain; // Combine masked local part with domain
+      }
+
+      const questions = {
+        mobileNumber: studentInfo.mobileNumber,
+        personalEmail: studentInfo.personalEmail
+      };
+
+      const randomAccountQuestion = () => {
+        // Get the values of the questions object
+        const values = Object.values(questions);
+        
+        // Generate a random index
+        const randomIndex = Math.floor(Math.random() * values.length);
+        
+        // Pick a random value
+        const randomValue = values[randomIndex];
+
+        if (randomIndex === 0) {
+          return {
+            name: "Phone Number",
+            value: maskPhoneNumber(randomValue)
+          }
+        } else {
+          return {
+            name: "Email",
+            value: maskEmail(randomValue)
+          }
+        }
+      };
+
+      // Compute the masked value
+      const newMaskedValue = randomAccountQuestion();
+      setMaskedValue(newMaskedValue); // Set the masked value in state
+      console.log(newMaskedValue); // Log the masked value immediately after computing it
+    }
+  }, [showConfirmationModal, studentInfo]);
+
+
+  
+  useEffect(() => {
+    const fetchAccountInfo = async () => {
       try {
-        const response = await FetchUserServerSideAction(Parameter.id)
-        if(response.success === true) {
-          setStudentInfo(response.data[0])
-        }else{
-          alert("Failed to load data")
+        const result = await fetchStudentAccountInfo(studentAccountID);
+        if (result.success) {
+          setAccountInfo(result.data[0]);
+          return true; // Indicate success
         }
       } catch (err) {
-        console.error("Error fetching student data:", err)
-        alert("Failed to load student data, settings page")
+        console.error("Fetching account info error", err);
       }
-    }
-    fetchStudentData()
+      return false; // Indicate failure
+    };
+  
+    const fetchStudentData = async () => {
+      try {
+        const response = await FetchUserServerSideAction(Parameter.id);
+        if (response.success === true) {
+          setStudentInfo(response.data[0]);
+          return true; // Indicate success
+        } else {
+          alert("Failed to load data");
+        }
+      } catch (err) {
+        console.error("Error fetching student data:", err);
+        alert("Failed to load student data, settings page");
+      }
+      return false; // Indicate failure
+    };
+  
+    const fetchData = async () => {
+      const accountInfoSuccess = await fetchAccountInfo();
+      const studentDataSuccess = await fetchStudentData();
+  
+      // Set loading animation to false only if both fetches were successful
+      if (accountInfoSuccess && studentDataSuccess) {
+        setLoadingAnimation(false);
+      }
+    };
+  
+    fetchData(); // Call the fetchData function
   }, [studentAccountID]);
+  
+  if(loadingAnimation){
+    return(
+      <div className="absolute top-0 h-screen w-screen">
+        <LoadingScreen/>
+      </div>
+    )
+  }
+  
 
   const handleLogout = () => {
     console.log("Logging out...")
   }
+
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode)
   }
 
   const Send = () => {
-    const GenerateCode = async() => {
-      try{
-        const passwordPosting = await SendWhatsappCode(studentInfo.mobileNumber); // Pass the new password
-        if (passwordPosting.success) {
-          setShowConfirmationModal(false);
-          setValues({ OldPassword: "", NewPassword: "" }); // Reset password fields
-        } else {
-          alert("Failed to update password.");
-        }
-      }catch(err){
-        console.error( "Browser Submission Error",err)
-      }
+    const isPhoneNumber = maskedValue.name === "Phone Number";
+    const confirmationValue = isPhoneNumber ? studentInfo.mobileNumber : studentInfo.personalEmail;
+  
+    if (confirmInformation !== confirmationValue) {
+      console.log("Does not match");
+      return; // Early return if the confirmation does not match
     }
-
-    GenerateCode();
-  }
+  
+    setModalLoadinig(true);
+    setShowConfirmationModal(false);
+  
+    const updatePassword = async () => {
+      try {
+        const password_update_response = await PasswordUpdate(values.NewPassword, studentAccountID);
+        if (password_update_response.success) {
+          setModalLoadinig(false);
+          setSuccessMessage(true)
+          const timer = setTimeout(() => {
+            setSuccessMessage(false);
+          }, 2000);
+      
+          // Cleanup function to clear the timeout
+          return () => clearTimeout(timer);
+        } else {
+          console.error("Password update failed");
+          setModalLoadinig(false); // Ensure loading state is reset
+        }
+      } catch (err) {
+        console.error("Error updating password", err); // Log the actual error
+        setModalLoadinig(false); // Ensure loading state is reset
+      }
+    };
+  
+    updatePassword();
+  };
 
   return (
     <div className={`min-h-screen ${darkMode ? "bg-gray-900 text-white" : "bg-gray-100"}`}>
@@ -349,26 +501,57 @@ const studentAccountID = Parameter.id;
         </div>
       </div>
 
-      {showConfirmationModal && (
-        <div
-          className="fixed inset-0 flex items-center justify-center bg-[#00000096] z-50"
-          onClick={() => { setShowConfirmationModal(false) }}
-        >
-          <div
-            className="bg-white p-6 rounded-lg shadow-lg w-96"
-            onClick={(e) => e.stopPropagation()} // Prevent modal close when clicking inside the modal
-          >
-            <h2 className="text-xl font-semibold mb-4">Confirm Password Change</h2>
-            <p className="mb-4">Code Sent to Whatsapp {studentInfo.mobileNumber}</p>
-            <button
-              onClick={Send}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+    {successMessage && (
+      <div
+      className="fixed inset-0 flex items-center justify-center bg-[#00000096] z-50">
+      <div
+        className="bg-white p-6 rounded-lg shadow-lg w-96 flex flex-col items-center justify-center"
+        onClick={(e) => e.stopPropagation()} // Prevent modal close when clicking inside the modal
+      >
+        <h2 className="text-xl font-semibold mb-4">Password Changed Successfully</h2>
+        <CircleCheck className="text-[blue] w-12 h-12 font-bold animate-bounce"/>
+      </div>
+      </div>
+    )}
+
+      {modalLoading && (
+            <div
+            className="fixed inset-0 flex items-center justify-center bg-[#00000096] z-50">
+            <div
+              className="bg-white p-6 rounded-lg shadow-lg w-96 flex flex-col items-center justify-center"
+              onClick={(e) => e.stopPropagation()} // Prevent modal close when clicking inside the modal
             >
-              Submit
-            </button>
-          </div>
-        </div>
+              <h2 className="text-xl font-semibold mb-4">Processing Request</h2>
+              <div className="animate-spin h-12 w-12 rounded-full border-t-4 border-blue-900"></div>
+            </div>
+            </div>
       )}
+
+      {showConfirmationModal && (
+            <div
+            className="fixed inset-0 flex items-center justify-center bg-[#00000096] z-50"
+            onClick={() => { setShowConfirmationModal(false) }}
+            >
+            <div
+              className="bg-white p-6 rounded-lg shadow-lg w-96"
+              onClick={(e) => e.stopPropagation()} // Prevent modal close when clicking inside the modal
+            >
+              <h2 className="text-xl font-semibold mb-4">Confirm the {maskedValue.name}</h2>
+              <p className="mb-4">Retype: <span className="text-[#2541B2] font-bold">{maskedValue.value}</span></p>
+              <input type="text"
+              name = "confirm_info"
+              onChange={(e) => {setConfirmInformation(e.target.value)}}
+              className="block outline-1 rounded-sm mb-2 py-2 pl-2 font-semibold outline-[#2541B2]" />
+              <button
+                onClick={Send}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 font-semibold"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+          )
+          }
     </div>
   )
 }

@@ -7,7 +7,6 @@ export async function checkAuthorisationServerSide(){
     const tokenInCookies = cookiesStore.get("bdas_auth_cookies");
     
     try{
-
         const isVerified = verifyToken(tokenInCookies["value"]);
         const userId = isVerified.id;
 
