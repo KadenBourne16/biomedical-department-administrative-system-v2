@@ -4,7 +4,7 @@ export const client = createClient({
   projectId: "t8e4ngk6",
   dataset: "bdas",
   apiVersion: "2023-05-03", 
-  token: "skcasFAvJwJXCS8O2PxpBFtljK4aDML13z5vIHRFdHTGdsJGUoQfl0q5wooel1emZXppfv6TJbk4EahbixD0HSKi5i81VggGusy3Rdfj1QEFrcF6J9uOvlJHPSWuO3WVo1ie6XVLAi4hrbeYyXacJYtIY9SKdxZgwHKsGILmWIBdeHRVR2IT", 
+  token:"skdtE59ewIrZSCcLeiWSGp790F9Qwj6djkaQ40PpRLHtScMilFN6Q3SsefbV43z2dEY1y6TXwC74wGMNBPJzlE7kMRAD11BFTNjV8Q5TN77Zot3Fwg8sVI9HEgWrfXaPjwts9iNQXBZuk5ZVJh1te6ODvIo72MtL9BztDHlqlLyc1dcQtSTs",
   useCdn: false,
 })
 

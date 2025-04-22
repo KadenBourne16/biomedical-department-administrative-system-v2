@@ -54,6 +54,14 @@ const [successMessage, setSuccessMessage] = useState(false)
     setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
+  /*
+  1. Find where password is coming from the backend(Automatically hashed)
+  2. Find where password entered by user is coming from
+  3. Compare hashed password with that of the entered password
+  4. If equal, give user modal to fill out the  password change
+  5. change password in the database
+  */
+  
   const handleSavePassword = () => {
     const compareEnteredPassword = async() => {
       console.log(values.OldPassword, accountInfo.password, "Password Info")
