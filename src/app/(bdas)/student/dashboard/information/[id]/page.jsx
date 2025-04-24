@@ -96,16 +96,16 @@ const Information = () => {
             </div>
             <div className="flex flex-col justify-center">
               <div className="text-center md:text-left">
-                <h1 className="text-[#2541B2] font-bold text-xl md:text-3xl">
-                  NAME:{" "}
-                  <span className="text-lg md:text-2xl font-semibold">
-                    {safeGet(studentData, "firstName", "").toUpperCase()}{" "}
-                    {safeGet(studentData, "middleName", "").toUpperCase()}{" "}
-                    {safeGet(studentData, "lastName", "").toUpperCase()}
+                <h1 className="text-[#2541B2] font-bold text-xl md:text-xl">
+                  Name:{" "}
+                  <span className="text-lg md:text-2xl font-bold text-black">
+                    {safeGet(studentData, "firstName", "")}{" "}
+                    {safeGet(studentData, "middleName", "")}{" "}
+                    {safeGet(studentData, "lastName", "")}
                   </span>
                 </h1>
-                <h1 className="font-bold text-[#2541B2] text-lg md:text-2xl mt-2">
-                  Index Number: <span className="text-black font-semibold">{safeGet(studentData, "indexNo")}</span>
+                <h1 className="font-bold text-[#2541B2] text-lg md:text-xl mt-2">
+                  Index Number: <span className="text-black font-bold text-2xl">{safeGet(studentData, "indexNo")}</span>
                 </h1>
               </div>
             </div>
@@ -213,20 +213,6 @@ const Information = () => {
           </div>
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="text-gray-500 text-sm font-medium flex items-center">
-                  <Phone size={16} className="mr-2 text-gray-400" />
-                  Mobile Number
-                </h3>
-                <p className="text-gray-900 font-medium mt-1">{safeGet(studentData, "mobileNumber")}</p>
-              </div>
-              <div>
-                <h3 className="text-gray-500 text-sm font-medium flex items-center">
-                  <Mail size={16} className="mr-2 text-gray-400" />
-                  Institutional Email
-                </h3>
-                <p className="text-gray-900 font-medium mt-1">{safeGet(studentData, "institutionalEmail")}</p>
-              </div>
               <div className="md:col-span-2">
                 <h3 className="text-gray-500 text-sm font-medium flex items-center">
                   <MapPin size={16} className="mr-2 text-gray-400" />

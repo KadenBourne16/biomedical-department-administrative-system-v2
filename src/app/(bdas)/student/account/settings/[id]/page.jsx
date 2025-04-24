@@ -17,7 +17,8 @@ import {
   EyeOff,
   Save,
   AlertTriangle,
-  CircleCheck
+  CircleCheck,
+  Info
 } from "lucide-react"
 import { PasswordUpdate } from "@/serverSide/password_update_serverside_action"
 import SendWhatsappCode from "@/serverSide/sendwhatsapp_serverside_action"
@@ -47,7 +48,8 @@ const [confirmInformation, setConfirmInformation] = useState("");
 const [modalLoading, setModalLoadinig] = useState(false);
 const [loadingAnimation, setLoadingAnimation] = useState(true);
 const [successMessage, setSuccessMessage] = useState(false)
-
+const [errors, setErrors] = useState({})
+const [showErrorDialogue, setShowErrorDialogue] = useState(false)
 
 //Functions
   const handleChange = (e) => {
@@ -62,23 +64,36 @@ const [successMessage, setSuccessMessage] = useState(false)
   5. change password in the database
   */
   
-  const handleSavePassword = () => {
-    const compareEnteredPassword = async() => {
-      console.log(values.OldPassword, accountInfo.password, "Password Info")
-      const passwordResult = await runCheckFunctions(values.OldPassword, accountInfo.password);
-      console.log(passwordResult)
-      if(passwordResult.success === true){
-        return true;
-      }
-      return false
-    }
+  const handleError = (message) => {
+    setErrors(message);
+    setTimeout(() => {
+      setErrors({});
+      setShowErrorDialogue(false);
+    }, 4000);
+  };
 
-    if (compareEnteredPassword() === true) {
-      setShowConfirmationModal(true);
-    } else {
-      <IncorrectMessage error_name="Password"/>
+  const handleSavePassword = async() => {
+    const passwordResult = await runCheckFunctions(values.OldPassword, accountInfo.password);
+    console.log("this is password result:", passwordResult)
+    if(passwordResult.success === false || !values.NewPassword){
+      if(passwordResult.success === false){
+        const newError = { OldPasswordError:"Incorrect old password"}
+        handleError(newError)
+        setShowErrorDialogue(true)
+      }else if(!values.NewPassword){
+        const newError = { NewPasswordError:"Incorrect new password"}
+        handleError(newError)
+        setShowErrorDialogue(true)
+      }else{
+        handleError("An error occured")
+        setShowErrorDialogue(true)
+      }
+    }else{
+      setShowConfirmationModal(true)
     }
   }
+  
+
 
   useEffect(() => {
     if (showConfirmationModal) {
@@ -221,6 +236,7 @@ const [successMessage, setSuccessMessage] = useState(false)
   
     if (confirmInformation !== confirmationValue) {
       console.log("Does not match");
+      alert(`Check ${maskedValue.name} and enter again`)
       return; // Early return if the confirmation does not match
     }
   
@@ -509,6 +525,24 @@ const [successMessage, setSuccessMessage] = useState(false)
         </div>
       </div>
 
+    { showErrorDialogue && (
+      <div className="fixed inset-0 flex items-center justify-center bg-black/70">
+      <div className="bg-white text-center align-center rounded-lg p-6 flex flex-col items-center w-90">
+         <Info className="text-red-600"/>
+         {errors.NewPasswordError ? (
+          <div>
+            <h1 className="text-red-500 font-semibold">{errors.NewPasswordError}</h1>
+          </div>
+         ):errors.OldPasswordError ? (
+          <div>
+            <h1 className="text-red-500 font-semibold text-lg">{errors.OldPasswordError}</h1>
+          </div>
+         ):null}
+      </div>
+    </div>
+    )
+
+    }
     {successMessage && (
       <div
       className="fixed inset-0 flex items-center justify-center bg-[#00000096] z-50">
