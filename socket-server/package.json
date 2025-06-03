@@ -1,0 +1,21 @@
+{
+  "name": "socket-server",
+  "version": "1.0.0",
+  "description": "realtime chat for biomed department",
+  "main": "server.js",
+  "scripts": {
+    "test": "dev"
+  },
+  "keywords": [
+    "start"
+  ],
+  "author": "kaden16",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.8.1",
+    "yarn": "^1.22.22"
+  }
+}

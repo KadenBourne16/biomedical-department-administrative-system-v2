@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { FetchUserServerSideAction } from "@/serverSide/fetch_user_serverside_action"
+import { FetchUserServerSideAction } from "@/server/fetch_user_serverside_action"
 import Link from "next/link"
 import Image from "next/image"
 import {
@@ -20,12 +20,12 @@ import {
   CircleCheck,
   Info
 } from "lucide-react"
-import { PasswordUpdate } from "@/serverSide/password_update_serverside_action"
-import SendWhatsappCode from "@/serverSide/sendwhatsapp_serverside_action"
+import { PasswordUpdate } from "@/server/password_update_serverside_action"
+import SendWhatsappCode from "@/server/sendwhatsapp_serverside_action"
 import {useParams} from 'next/navigation'
 import LoadingScreen from "@/app/components/global/loading_animation"
-import {fetchStudentAccountInfo} from '@/serverSide/fetch_account_info_serverside_action'
-import { runCheckFunctions } from "@/serverSide/run_check_serverside_action"
+import {fetchStudentAccountInfo} from '@/server/fetch_account_info_serverside_action'
+import { runCheckFunctions } from "@/server/run_check_serverside_action"
 import IncorrectMessage from "@/app/components/global/incorrect_message"
 
 

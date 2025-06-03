@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import "./students.css"
 import LoadingScreen from "@/app/components/global/loading_animation"
 import SuccessMessage from "@/app/components/global/success_message"
-import { SignUpStudentServerAction } from "@/serverSide/student"
+import { SignUpStudentServerAction } from "@/server/student"
 import { useRouter } from "next/navigation" // Fixed import from next/navigation
 
 function RenderForm({ section, formData, handleChange, errors }) {

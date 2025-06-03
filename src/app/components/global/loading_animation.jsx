@@ -1,54 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import "@/app/styles/global/loading_animation.css"
-import { FaUserGraduate, FaChalkboardTeacher, FaChartLine } from 'react-icons/fa';
-
-const LoadingScreen = () => {
-  const [icon, setIcon] = useState('student');
-  const [showDot, setShowDot] = useState(true);
-  const [showIcon, setShowIcon] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowDot(false);
-      setShowIcon(true);
-      setTimeout(() => {
-        setShowDot(true);
-        setShowIcon(false);
-        setIcon((prevIcon) => {
-          switch (prevIcon) {
-            case 'student':
-              return 'lecturer';
-            case 'lecturer':
-              return 'statistics';
-            case 'statistics':
-              return 'student';
-            default:
-              return 'student';
-          }
-        });
-      }, 1000);
-    }, 3610);
-
-    return () => clearInterval(interval);
-  }, [icon]);
-
+export default function LoadingScreen() {
   return (
-    <div className="loading-screen">
-      {showDot && (
-        <div className="dot-container">
-          <div className="dot" />
-        </div>
-      )}
-      {showIcon && (
-        <div className="icon-container">
-          {icon === 'student' && <FaUserGraduate size={48} />}
-          {icon === 'lecturer' && <FaChalkboardTeacher size={48} />}
-          {icon === 'statistics' && <FaChartLine size={48} />}
-        </div>
-      )}
-      <p className='font-bold text-blue-500'>Loading...</p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700">
+      <div className="text-center">
+        <div className="w-16 h-16 border-4 border-t-transparent border-white rounded-full animate-spin mx-auto mb-4"></div>
+        <h2 className="text-xl font-semibold text-white">Loading...</h2>
+        <p className="text-blue-100">Please wait while we set up</p>
+      </div>
     </div>
-  );
-};
-
-export default LoadingScreen;
+  )
+}

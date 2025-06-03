@@ -1,0 +1,25 @@
+[
+  {
+  "firstName": "John",
+  "middleName": "David",
+  "lastName": "Doe",
+  "indexNo": "BIO/2024/001",
+  "program": "Biomedical Engineering",
+  "currentLevel": "300",
+  "entryLevel": "100",
+  "entryMode": "Regular",
+  "dateOfAdmission": "2022-09-01",
+  "dateOfCompletion": "2026-06-30",
+  "hall": "Commonwealth Hall",
+  "gender": "Male",
+  "dateOfBirth": "2000-05-15",
+  "placeOfBirth": "Accra",
+  "cityOfBirth": "Accra",
+  "nationality": "Ghanaian",
+  "hometown": "Kumasi",
+  "maritalStatus": "Single",
+  "religion": "Christianity",
+  "addressLine": "123 University Avenue",
+  "addressLine2": "East Legon"
+ }
+]

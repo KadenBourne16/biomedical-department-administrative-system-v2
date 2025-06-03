@@ -1,0 +1,152 @@
+[
+    {
+        "index_number": "B202210014",
+        "first_name": "James",
+        "middle_name": "",
+        "last_name": "Stone",
+        "institutional_email": "jamesstones@ktu.edu.gh",
+        "programme": "BTech Biomedical Engineering",
+        "gpa": "4.0",
+        "cgpa": "3.8",
+        "grade": "A",
+        "course_history": [
+            {
+                "course_code": "fr1234",
+                "course_name": "HumanBlood",
+                "course_Lecturer": "Dr. Agelina Asare",
+                 "level": "200"
+            }
+        ],
+        "current_courses": [
+            {
+                "course_code": "en_112",
+                "course_name": "BiomedLaboratory",
+                "course_Lecturer": "Dr. Aduman Hubert",
+                "level": "300"
+            }
+        ],
+        "assigned_lecturer_email": "kaden.bourne@ktu.edu.gh",
+        "performance rating": "80",
+        "attendance_rate": "20"
+    },
+     {
+    "index_number": "B202210015",
+    "first_name": "Jane",
+    "middle_name": "A",
+    "last_name": "Doe",
+    "institutional_email": "janedoe@ktu.edu.gh",
+    "programme": "BTech Computer Science",
+    "gpa": "3.9",
+    "cgpa": "3.7",
+    "grade": "A-",
+    "course_history": [
+      {
+        "course_code": "cs101",
+        "course_name": "Introduction to Programming",
+        "course_Lecturer": "Dr. John Smith",
+        "level": "100"
+      }
+    ],
+    "current_courses": [
+      {
+        "course_code": "cs202",
+        "course_name": "Data Structures and Algorithms",
+        "course_Lecturer": "Dr. Jane Johnson",
+        "level": "200"
+      }
+    ],
+    "assigned_lecturer_email": "kaden.bourne@ktu.edu.gh",
+    "performance_rating": "85",
+    "attendance_rate": "95"
+  },
+  {
+    "index_number": "B202210016",
+    "first_name": "Michael",
+    "middle_name": "",
+    "last_name": "Brown",
+    "institutional_email": "michaelbrown@ktu.edu.gh",
+    "programme": "BTech Electrical Engineering",
+    "gpa": "3.8",
+    "cgpa": "3.6",
+    "grade": "B+",
+    "course_history": [
+      {
+        "course_code": "ee101",
+        "course_name": "Circuit Analysis",
+        "course_Lecturer": "Dr. Michael Davis",
+        "level": "100"
+      }
+    ],
+    "current_courses": [
+      {
+        "course_code": "ee202",
+        "course_name": "Electronics",
+        "course_Lecturer": "Dr. Emily Chen",
+        "level": "200"
+      }
+    ],
+    "assigned_lecturer_email": "jus12@ktu.edu.gh",
+    "performance_rating": "80",
+    "attendance_rate": "90"
+  },
+  {
+    "index_number": "B202210017",
+    "first_name": "Emily",
+    "middle_name": "K",
+    "last_name": "Taylor",
+    "institutional_email": "emilytaylor@ktu.edu.gh",
+    "programme": "BTech Mechanical Engineering",
+    "gpa": "3.7",
+    "cgpa": "3.5",
+    "grade": "B",
+    "course_history": [
+      {
+        "course_code": "me101",
+        "course_name": "Thermodynamics",
+        "course_Lecturer": "Dr. Emily Taylor",
+        "level": "100"
+      }
+    ],
+    "current_courses": [
+      {
+        "course_code": "me202",
+        "course_name": "Mechanics of Materials",
+        "course_Lecturer": "Dr. David Lee",
+        "level": "200"
+      }
+    ],
+    "assigned_lecturer_email": "jus12@ktu.edu.gh",
+    "performance_rating": "75",
+    "attendance_rate": "85"
+  },
+  {
+    "index_number": "B202210018",
+    "first_name": "David",
+    "middle_name": "",
+    "last_name": "Lee",
+    "institutional_email": "davidlee@ktu.edu.gh",
+    "programme": "BTech Civil Engineering",
+    "gpa": "3.6",
+    "cgpa": "3.4",
+    "grade": "B-",
+    "course_history": [
+      {
+        "course_code": "ce101",
+        "course_name": "Structural Analysis",
+        "course_Lecturer": "Dr. David Kim",
+        "level": "100"
+      }
+    ],
+    "current_courses": [
+      {
+        "course_code": "ce202",
+        "course_name": "Transportation Engineering",
+        "course_Lecturer": "Dr. Sarah Taylor",
+        "level": "200"
+      }
+    ],
+    "assigned_lecturer_email": "kaden.bourne@ktu.edu.gh",
+    "performance_rating": "70",
+    "attendance_rate": "80"
+  }
+]

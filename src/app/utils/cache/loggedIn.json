@@ -1,0 +1,11 @@
+[
+  {
+    "_createdAt": "2025-05-27T11:02:36Z",
+    "_id": "f1469335-1240-47a9-8846-6016f513cf62",
+    "_rev": "ql3Qq0rtf8Es9nuLkYZiYw",
+    "_type": "account",
+    "_updatedAt": "2025-05-27T12:09:53Z",
+    "account_type": "super admin",
+    "email": "admin@gmail.com"
+  }
+]

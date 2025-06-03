@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { FetchUserServerSideAction } from "@/serverSide/fetch_user_serverside_action"
+import { FetchUserServerSideAction } from "@/server/fetch_user_serverside_action"
 import { ChevronDown, FileText, Settings, LogOut } from "lucide-react"
 import { useParams } from "next/navigation"
 
@@ -72,13 +72,13 @@ const ProfileIcon = () => {
         className="profile-dropdown-container flex items-center text-white font-semibold space-x-2 cursor-pointer relative"
         onClick={toggleDropdown}
       >
-        <h1 className="lg:text-lg text-sm sm:block">{studentProfile}</h1>
+        <h1 className="lg:text-md text-sm sm:block">{studentProfile}</h1>
         <Image
           src="/ProfilePic.jpg"
-          height={50}
-          width={50}
+          height={20}
+          width={20}
           alt="Profile"
-          className="rounded-[6em] border-2 border-white h-10 w-10 sm:h-12 sm:w-12"
+          className="rounded-[6em] border-2 border-white md:h-7 md:w-7 sm:h-12 sm:w-12"
         />
         <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} />
 
