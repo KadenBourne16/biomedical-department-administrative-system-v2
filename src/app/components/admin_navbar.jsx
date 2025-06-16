@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
@@ -24,6 +24,7 @@ const AdminNavbar = () => {
   const [adminId, setAdminId] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const param = useParams();
 
   useEffect(() => {
     const admin_id = localStorage.getItem("admin_id");
@@ -33,27 +34,27 @@ const AdminNavbar = () => {
   const navItems = [
     {
       name: "Dashboard",
-      href: `/admin/dashboard`,
+      href: `admin-secret/dashboard/dashboard/${adminId}`,
       icon: LayoutDashboard,
     },
     {
       name: "Students",
-      href: `/admin/students`,
+      href: `/admin-secret/dashboard/student/${adminId}`,
       icon: Users,
     },
     {
       name: "Lecturers",
-      href: `/admin/lecturers`,
+      href: `/admin-secret/dashboard/lecturer/${adminId}`,
       icon: GraduationCap,
     },
     {
       name: "News",
-      href: `/admin/news`,
+      href: `/admin-secret/dashboard/news/${adminId}`,
       icon: Newspaper,
     },
     {
       name: "Courses",
-      href: `/admin/courses`,
+      href: `/admin-secret/dashboard/courses/${adminId}`,
       icon: BookOpen,
     },
   ];

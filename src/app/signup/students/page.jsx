@@ -99,6 +99,10 @@ function RenderForm({ section, formData, handleChange, errors }) {
               <option value="">Select Program</option>
               <option value="B-TECH Biomedical Engineering">B-TECH Biomedical Engineering</option>
               <option value="HND Biomedical Engineering">HND Biomedical Engineering</option>
+              <option value="Certificate">Certificate</option>
+              <option value="Top-up">Top-up</option>
+              <option value="BTech Weekend">BTech Weekend</option>
+              <option value="HND Regular">HND Regular</option>
             </select>
             {errors.program && <h1 className="generalError">{errors.program}</h1>}
           </div>

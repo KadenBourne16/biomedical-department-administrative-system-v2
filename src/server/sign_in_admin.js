@@ -1,6 +1,5 @@
 "use server";
 import { client } from "@/sanity/lib/client";
-import { writeFile } from "@/app/utils/functions/file_manipulation";
 import { generateToken } from "@/app/utils/JWT";
 import passwordUtils from "@/app/utils/passwordEncrypter";
 
@@ -35,19 +34,14 @@ export const signInAdmin = async (email, the_password) => {
 
     // Generate token
     const token = generateToken(account._id);
-     //remove the password section from the account data
-
+    // Remove the password section from the account data
     const { password, ...safeData } = account;
-    console.log(safeData)
-    // Write to file
-    const write_response = await writeFile(safeData, "loggedIn");
-    console.log(write_response)
 
     return {
       type: "success",
       success: true,
       message: "Sign-in successful",
-      data: account,
+      data: safeData,
       token,
     };
 

@@ -1,59 +1,47 @@
 [
   {
-    "title": "Beginning Semester",
-    "message": "consequatur aliquid accusamus est harum, eos, at dolorum nemo id earum expedita fugit debitis dignissimos voluptatum eum optio incidunt repellendus.",
-    "from": "Admin",
-    "to": "All",
-    "posted_date": "2023-02-15",
-    "expire": "2023-03-01"
+    "_type": "news",
+    "title": "optio velit averto",
+    "message": "Magni quam fugiat virga.",
+    "from": "Lecturer",
+    "posted_date": "Officia beneficium anser demoror tametsi iusto.",
+    "expire": "Sollers debeo quis ustilo cribro.",
+    "_id": "news-64d9831f-1a2b-43c4-b5d6-7e8f9a0b1c2d"
   },
   {
-    "title": "New Assignment",
-    "message": "A new assignment has been posted for your course.",
-    "from": "Professor Smith",
-    "to": "Class 101",
-    "posted_date": "2023-02-15",
-    "expire": "2023-03-01"
+    "_type": "news",
+    "title": "commodi antea depopulo",
+    "message": "Cena addo earum rem consequuntur voluptas amor argumentum voluptatibus.",
+    "from": "HOD",
+    "posted_date": "Adiuvo sto aliquid.",
+    "expire": "Absque velut aestus ater centum conculco odit acidus sumo terreo.",
+    "_id": "news-a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6"
   },
   {
-    "title": "Upcoming Event",
-    "message": "Don't forget about the upcoming event on campus!",
-    "from": "All Student Union",
-    "to": "All Students",
-    "posted_date": "2023-02-20",
-    "expire": "2023-03-15"
+    "_type": "news",
+    "title": "thorax consuasor qui",
+    "message": "Adulatio calamitas calcar infit desolo bibo.",
+    "from": "Administrator",
+    "posted_date": "Sint ceno aetas volutabrum vaco suadeo viriliter.",
+    "expire": "Conservo soleo hic degusto.",
+    "_id": "news-92471a55-467d-4159-b366-382d8f9427f4"
   },
   {
-    "title": "Midterm Grades",
-    "message": "Midterm grades are now available online.",
-    "from": "Registrar's Office",
-    "to": "All Students",
-    "posted_date": "2023-03-01",
-    "expire": ""
+    "_type": "news",
+    "title": "vinculum cum ceno",
+    "message": "Quis vorago accedo certus carpo cimentarius custodia repellat thesis depraedor.",
+    "from": "Lecturer",
+    "posted_date": "Catena catena tersus infit vito arbor.",
+    "expire": "Debeo synagoga statim vigor vetus.",
+    "_id": "news-f71d35a1-2345-6789-9012-3456c7d8e9f0"
   },
   {
-    "title": "Campus Closure",
-    "message": "The campus will be closed on Friday due to weather conditions.",
-    "from": "Administration",
-    "to": "All Students and Staff",
-    "posted_date": "2023-02-25",
-    "expire": "2023-02-25"
-  },
-  {
-    "title": "New Course Offerings",
-    "message": "New course offerings are now available for the upcoming semester.",
-    "from": "Registrar's Office",
-    "to": "All Students",
-    "posted_date": "2023-02-15",
-    "expire": ""
-  },
-  {
-    "title": "Final Exam Schedule",
-    "message": "The final exam schedule is now available online.",
-    "from": "Registrar's Office",
-    "to": "All Students",
-    "posted_date": "2023-04-01",
-    "expire": ""
+    "_type": "news",
+    "title": "creber curvo suadeo",
+    "message": "Uter territo trucido vester.",
+    "from": "Developer",
+    "posted_date": "Carus corrumpo ventus sub vespillo.",
+    "expire": "Culpa trans tamen comptus pecto vel creo.",
+    "_id": "news-13579bdf-2468-ace0-1357-9bdf2468ace0"
   }
 ]
-

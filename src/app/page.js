@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, User, GraduationCap, Lock, Mail, AlertCircle } from "lucide-react";
 import LoginServerSideAction from "@/server/loginAccount";
+import LoadingScreen from "./components/global/loading_animation";
 
 export default function LoginPage() {
   const [loginInfo, setLoginInfo] = useState({
@@ -95,7 +96,7 @@ export default function LoginPage() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // Replace with your loading component
+    return <LoadingScreen/> // Replace with your loading component
   }
 
   return (

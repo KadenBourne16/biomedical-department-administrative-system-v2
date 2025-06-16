@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import LoadingScreen from "@/app/loading";
 import { AuthenticateUser  } from "@/server/authenticate_account";
 import { useParams } from "next/navigation";
-import { GetNews } from "@/server/get_news";
 import {
   ChevronDown,
   ChevronUp,
@@ -19,16 +18,45 @@ import {
   Clock,
   BookAIcon,
 } from "lucide-react";
+import { FetchStudentInfoAdmin } from "@/server/admin/fetch_student_info_admin";
+import { FetchLecturerInfoAdmin } from "@/server/admin/fetch_lecturer_info_admin";
+import { FetchAccountInfoAdmin } from "@/server/admin/fetch_account_info_admin";
+
+
+
+const MiniLoading = () => {
+  return(
+    <>
+         <div className="flex justify-center items-center py-8">
+                <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+    </>
+  )
+}
+
 
 const GeneralDashboard = () => {
   const param = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [update, setUpdate] = useState(false);
   const [error, setError] = useState(false);
   const [news, setNews] = useState([]);
   const [modalType, setModalType] = useState("");
   const [selectedNews, setSelectedNews] = useState(null);
   const [limit, setLimit] = useState(3);
+  const [allDashboardData, setSetAllDashboardData] = useState({
+    total_students: "",
+    total_lecturers: "",
+    active_accounts: "",
+    active_accounts_list: [], 
+    blocked_accounts: "",
+    blocked_accounts_list: [],
+    current_logs: [],
+    courses: [],
+    pending_requests: [],
+    news_list: []
+  })
 
   const [dashboardStats, setDashboardStats] = useState({
     students: 1247,
@@ -41,20 +69,53 @@ const GeneralDashboard = () => {
     pendingRequests: 12,
   });
 
-  useEffect(() => {
-    const getLatestNews = async () => {
-      try {
-        const getnews_response = await GetNews();
-        setNews(getnews_response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
 
-    getLatestNews();
-  }, []);
+const calculateActiveAndBlockedAccounts = (data) => {
+  if (Array.isArray(data)) {
+    const blockedAccounts = data.filter((obj) => obj.blocked === true);
+    setSetAllDashboardData((prev) => ({
+      ...prev,
+      blocked_accounts: blockedAccounts.length ===  0 ? "0":blockedAccounts.length,
+      active_accounts: data.length - blockedAccounts.length,
+    }));
+  }
+};
 
-  useEffect(() => {
+
+useEffect(() => {
+  const getAllDashboardInformation = async () => {
+    try {
+      const fetch_student_information_response = await FetchStudentInfoAdmin();
+      const fetch_lecturer_information_response = await FetchLecturerInfoAdmin();
+      const fetch_all_accounts_response = await FetchAccountInfoAdmin();
+
+      console.log(fetch_all_accounts_response);
+      calculateActiveAndBlockedAccounts(fetch_all_accounts_response.data);
+
+      setSetAllDashboardData((prev) => ({
+         ...prev,
+        total_lecturers: Array.isArray(fetch_lecturer_information_response.data)
+          ? fetch_lecturer_information_response.data.length
+          : 0,
+      }));
+  
+      setSetAllDashboardData((prev) => ({
+        ...prev,
+        total_students: Array.isArray(fetch_student_information_response.data)
+          ? fetch_student_information_response.data.length
+          : 0,
+      }));
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
+  getAllDashboardInformation();
+}, []);
+
+
+useEffect(() => {
     const authenticateUser  = async () => {
       const admin_id = localStorage.getItem("admin_id");
       const token = localStorage.getItem("admin_token");
@@ -111,7 +172,7 @@ const GeneralDashboard = () => {
     Students: <User  size={24} aria-hidden="true" />,
     Lecturers: <GraduationCap size={24} aria-hidden="true" />,
     "Active Accounts": <Shield size={24} aria-hidden="true" />,
-    "Blocked Accounts": <User X size={24} aria-hidden="true" />,
+    "Blocked Accounts": <UserX size={24} aria-hidden="true" />,
     "Current Logs": <Activity size={24} aria-hidden="true" />,
     Courses: <Book size={24} aria-hidden="true" />,
     Departments: <Home size={24} aria-hidden="true" />,
@@ -185,12 +246,13 @@ const GeneralDashboard = () => {
         </p>
       </header>
 
+      
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "Students", value: dashboardStats.students },
-          { label: "Lecturers", value: dashboardStats.lecturers },
-          { label: "Active Accounts", value: dashboardStats.activeAccounts },
-          { label: "Blocked Accounts", value: dashboardStats.blockedAccounts },
+          { label: "Students", value: allDashboardData.total_students},
+          { label: "Lecturers", value: allDashboardData.total_lecturers },
+          { label: "Active Accounts", value: allDashboardData.active_accounts },
+          { label: "Blocked Accounts", value: allDashboardData.blocked_accounts},
           { label: "Current Logs", value: dashboardStats.currentLogs },
           { label: "Courses", value: dashboardStats.courses },
           { label: "Departments", value: dashboardStats.departments },
@@ -202,7 +264,7 @@ const GeneralDashboard = () => {
           >
             <div>
               <p className="text-xs text-gray-600 mb-1">{stat.label}</p>
-              <p className="font-extrabold text-xl leading-none">{stat.value}</p>
+              <div className="font-extrabold text-xl leading-none">{stat.value ? stat.value:(<MiniLoading/>)}</div>
               <p className="text-xs text-gray-500 mt-1">
                 {stat.label === "Pending Requests"
                   ? "Requires attention"

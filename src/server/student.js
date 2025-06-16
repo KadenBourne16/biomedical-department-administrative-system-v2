@@ -1,6 +1,7 @@
 "use server";
 import passwordUtils from "@/app/utils/passwordEncrypter";
 import { client } from "@/sanity/lib/client";
+import { revalidatePath } from "next/cache";
 
 export async function SignUpStudentServerAction(formData) {
   try {
@@ -41,7 +42,6 @@ export async function SignUpStudentServerAction(formData) {
         account_type: "student"
     };
 
-
     //Check if credentials exist
     const searchInstitutionalEmail = formData.institutionalEmail;
     const searchMobileNumber = formData.mobileNumber;
@@ -54,10 +54,9 @@ export async function SignUpStudentServerAction(formData) {
     } else {
         const result = await client.create(studentData);
         const accountResult = await client.create(studentAccount);
+        await revalidatePath("/admin-secret/dashboard/student/");
         return { success: true, data: result };
-    }
-
-    
+    } 
   } catch (error) {
     console.error("Error creating student:", error);
     return { success: false, error: error.message };

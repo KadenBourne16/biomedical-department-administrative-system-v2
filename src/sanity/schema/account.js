@@ -24,6 +24,12 @@ export const account = defineType({
       name: "account_type",
       title: "Account Type",
       type: "string"
+    }),
+    defineField({
+      name: "blocked",
+      title: "Blocked",
+      type: "boolean",
+      initialValue: false
     })
   ],
   preview: {

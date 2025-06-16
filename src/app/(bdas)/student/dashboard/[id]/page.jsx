@@ -7,7 +7,7 @@ import { useParams, useRouter } from "next/navigation";
 import LoadingScreen from "@/app/components/global/loading_animation";
 import { checkAuthorisationServerSide } from "@/server/check_authorisation_serside_action";
 import { FetchUserServerSideAction } from "@/server/fetch_user_serverside_action";
-import { Fetch_All_Dashboard_Info } from "@/server/fetch_all_dashboard_info";
+import { Fetch_All_News_Student_Info } from "@/server/fetch_all_news_info";
 
 
 export default function DashboardStudent() {
@@ -71,7 +71,7 @@ export default function DashboardStudent() {
   useEffect(() => {
     const fetchAllDashboardInformation = async() => {
       try{
-        const fetch_all_info_response = await Fetch_All_Dashboard_Info();
+        const fetch_all_info_response = await Fetch_All_News_Student_Info();
         setNews(fetch_all_info_response.data)
         if(fetch_all_info_response.type === "success"){
           setGlobalLoading(false);

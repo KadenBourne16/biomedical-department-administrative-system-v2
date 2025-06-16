@@ -1,0 +1,30 @@
+    [
+    {
+    "firstname": "John",
+    "middlename": "Doe",
+    "lastname": "Smith",
+    "course": "Mathematics",
+    "department": "Science",
+    "programme": "BSc",
+    "officeRoom": "Room 304, Math Building",
+    "assignedStudents": [
+        {
+        "studentIndexNo": "S12345",
+        "studentFirstname": "Emily",
+        "studentLastname": "Chen",
+        "studentInstitutionalEmail": "emily.chen@university.edu",
+        "studentProgramme": "BSc Mathematics"
+        },
+        {
+        "studentIndexNo": "S67890",
+        "studentFirstname": "David",
+        "studentLastname": "Lee",
+        "studentInstitutionalEmail": "david.lee@university.edu",
+        "studentProgramme": "BSc Mathematics"
+        }
+    ],
+    "score": 85,
+    "attendance": 90,
+    "rate": 0.85
+    }
+    ]

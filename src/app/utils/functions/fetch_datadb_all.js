@@ -1,8 +1,8 @@
 "use server"
-import client from '@/sanity/lib/client'
+import { client } from '@/sanity/lib/client'
 import { writeFile } from './file_manipulation'
 
-export const fetchDataDB = async (filename) => {
+export const FetchDataDBAll = async (filename) => {
     try{
         const dbfetch_response = client.fetch(`*[_type == "${filename}"]`)
         if(!dbfetch_response || dbfetch_response.length === 0){
